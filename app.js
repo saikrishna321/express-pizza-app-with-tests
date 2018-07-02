@@ -1,30 +1,31 @@
 const express = require("express");
-const bodyParser = require("body-parser");
 const app = express();
-
-const PORT = process.env.PORT || 3000;
 
 let pizzas = [
   { id: "1", name: "pepperoni pizza", price: 20 },
   { id: "2", name: "hawaiian pizza", price: 16 }
 ];
 
-app.use(bodyParser());
+app.use(express.json());
 
-app.get("/pizza", (req, res) => {
+app.get("/", (req, res) => {
+  res.send({ message: "hello pizzas" });
+});
+
+app.get("/pizzas", (req, res) => {
   res.send(pizzas);
 });
 
-app.get("/pizza/:id", (req, res) => {
+app.get("/pizzas/:id", (req, res) => {
   res.send(pizzas.find(element => element.id == req.params.id));
 });
 
-app.post("/pizza", (req, res) => {
+app.post("/pizzas", (req, res) => {
   pizzas = [...pizzas, req.body];
   res.send(pizzas);
 });
 
-app.put("/pizza/:id", (req, res) => {
+app.put("/pizzas/:id", (req, res) => {
   pizzas = pizzas.map(pizza => {
     const idOfRequestedPizza = req.params.id;
 
@@ -35,11 +36,9 @@ app.put("/pizza/:id", (req, res) => {
   res.send(pizzas);
 });
 
-app.delete("/pizza/:id", (req, res) => {
+app.delete("/pizzas/:id", (req, res) => {
   pizzas = pizzas.filter(pizza => pizza.id != req.params.id);
   res.send(pizzas);
 });
 
-app.listen(PORT, () => {
-  console.log(`awesome express pizza app has started on PORT ${PORT}`);
-});
+module.exports = app;
