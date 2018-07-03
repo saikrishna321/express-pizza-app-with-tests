@@ -1,44 +1,19 @@
 const express = require("express");
+const pizzasRouter = require("./routes/pizzasRouter");
+const indexRouter = require("./routes/indexRouter");
 const app = express();
-
-let pizzas = [
-  { id: "1", name: "pepperoni pizza", price: 20 },
-  { id: "2", name: "hawaiian pizza", price: 16 }
-];
 
 app.use(express.json());
 
-app.get("/", (req, res) => {
-  res.send({ message: "hello pizzas" });
+app.use("/", indexRouter);
+app.use("/pizzas", pizzasRouter);
+
+app.use(function(req, res, next) {
+  res.status(404).json("Sorry can't find that!");
 });
 
-app.get("/pizzas", (req, res) => {
-  res.send(pizzas);
-});
-
-app.get("/pizzas/:id", (req, res) => {
-  res.send(pizzas.find(element => element.id == req.params.id));
-});
-
-app.post("/pizzas", (req, res) => {
-  pizzas = [...pizzas, req.body];
-  res.send(pizzas);
-});
-
-app.put("/pizzas/:id", (req, res) => {
-  pizzas = pizzas.map(pizza => {
-    const idOfRequestedPizza = req.params.id;
-
-    if (pizza.id === idOfRequestedPizza) return Object.assign(pizza, req.body);
-    else return pizza;
-  });
-
-  res.send(pizzas);
-});
-
-app.delete("/pizzas/:id", (req, res) => {
-  pizzas = pizzas.filter(pizza => pizza.id != req.params.id);
-  res.send(pizzas);
+app.use(function(err, req, res, next) {
+  res.status(500).json("My bad! try again later");
 });
 
 module.exports = app;
