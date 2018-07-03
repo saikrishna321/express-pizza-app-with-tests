@@ -38,3 +38,7 @@ test("GET / should return hello pizzas", async () => {
   expect(response.body).toEqual({ message: "hello pizzas" });
 });
 ```
+
+#### Reference
+- [supertest docs](https://github.com/visionmedia/supertest) (Note: superagent offers various ways to write `expect()` statements, but they can be hard to read. Try to write expectation statements using the style showed in the code snippet above)
+- [superagent docs](https://github.com/visionmedia/superagent)
