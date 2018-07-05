@@ -11,12 +11,12 @@ router.get("/", (req, res) => {
 });
 
 router.get("/:id", (req, res, next) => {
-  const pizza = pizzas.find(element => element.id == req.params.id)
-  const err = new Error('simluated error')
+  const pizza = pizzas.find(element => element.id == req.params.id);
+
   if (pizza) {
     res.json(pizza);
   } else {
-    next()
+    next();
   }
 });
 
