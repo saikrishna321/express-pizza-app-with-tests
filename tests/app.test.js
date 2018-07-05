@@ -2,7 +2,6 @@ const app = require("../app");
 const request = require("supertest");
 
 test("GET / should return a hello message", async () => {
-  expect(1).toEqual(2)
   const response = await request(app).get("/");
   expect(response.status).toEqual(200);
   expect(response.body).toEqual("hello pizzas");
@@ -42,7 +41,7 @@ test("PUT /pizzas should return an array with the updated pizza", async () => {
 });
 
 test("DELETE /pizzas should return a 'deleted successfully' confirmation message", async () => {
-  const ID = 1
+  const ID = 1;
   const response = await request(app).delete(`/pizzas/${ID}`);
 
   expect(response.status).toEqual(200);
