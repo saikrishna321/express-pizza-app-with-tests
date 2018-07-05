@@ -2,6 +2,7 @@ const app = require("../app");
 const request = require("supertest");
 
 test("GET / should return a hello message", async () => {
+  expect(1).toEqual(2)
   const response = await request(app).get("/");
   expect(response.status).toEqual(200);
   expect(response.body).toEqual("hello pizzas");

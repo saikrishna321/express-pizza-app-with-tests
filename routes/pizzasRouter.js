@@ -7,8 +7,8 @@ let pizzas = [
 ];
 
 router.get("/", (req, res) => {
-  const pizzas
-  res.json(pizzas);
+  res.json("embarrasing bug in production!");
+  // res.json(pizzas);
 });
 
 router.get("/:id", (req, res, next) => {
