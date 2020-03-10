@@ -2,8 +2,26 @@ const express = require("express");
 const router = express.Router();
 
 let pizzas = [
-  { id: "1", name: "pepperoni pizza", price: 20 },
-  { id: "2", name: "hawaiian pizza", price: 16 }
+  { id: "1", 
+    details: {
+      name: "Super Friday", 
+      price: {
+        veg: 25,
+        non_veg: 30
+      }
+    },
+    has_combo: false
+  }  ,
+  { id: "2", 
+    details: {
+      name: "hawaiian pizza", 
+      price: {
+        veg: 15,
+        non_veg: 20
+      }
+    },
+    has_combo: true
+  }  
 ];
 
 router.get("/", (req, res) => {
@@ -23,8 +41,14 @@ router.get("/:id", (req, res, next) => {
 router.post("/", (req, res) => {
   const newPizza = {
     id: String(pizzas.length + 1),
-    name: req.body.name,
-    price: req.body.price
+    details: {
+      name: req.body.details.name,
+      price: {
+        veg: req.body.details.price.veg,
+        non_veg: req.body.details.price.non_veg
+      }
+    },
+    has_combo: req.body.has_combo
   };
   pizzas = [...pizzas, newPizza];
   res.json(newPizza);
